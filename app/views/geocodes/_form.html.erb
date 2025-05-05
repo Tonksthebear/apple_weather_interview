@@ -1,0 +1,29 @@
+<%# locals: (name:) %>
+
+<%= form_with url: geocodes_path, method: :get, scope: :query, class: "mx-auto w-full max-w-lg px-4 my-2" do |form| %>
+  <%= render Headless::FieldsetComponent.new(class: "space-y-6 rounded-xl bg-white/5 p-6 sm:p-10") do |fieldset| %>
+    <%= fieldset.with_legend(class: "text-base/7 font-semibold text-white") do %>
+      Search for an Address in the US
+    <% end %>
+    <%= fieldset.with_field do |field| %>
+      <%= field.with_label(class: "text-sm/6 font-medium text-white") do %>
+        Street address
+      <% end %>
+      <div class="flex flex-row mt-3">
+        <%= field.with_input(
+          name: form.field_name(:name),
+          id: form.field_id(:name),
+          required: true,
+          autofocus: true,
+          value: name,
+          class:
+            "flex-grow block rounded-lg rounded-r-none border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
+        ) %>
+        <%= render Headless::ButtonComponent.new(class: "group flex-shrink rounded-lg rounded-l-none border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 data-[hover]:bg-white/15 disabled:data-[hover]:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-800",type: :submit, name: "commit", value: "Search", data: { disable_with: "Searching..." } ) do %>
+          <%= heroicon "magnifying-glass-circle", class: "size-8 group-disabled:hidden" %>
+          <%= heroicon "rocket-launch", class: "hidden size-8 animate-bounce group-disabled:block" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

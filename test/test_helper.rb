@@ -2,6 +2,12 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+VCR.configure do |c|
+  c.cassette_library_dir = "test/vcr_cassettes"
+  c.hook_into :webmock
+  c.ignore_localhost = true
+end
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers

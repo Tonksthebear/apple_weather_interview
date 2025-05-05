@@ -1,0 +1,47 @@
+
+<div class="columns-1 justify-center w-full items-center">
+  <% flash.each do |type, message| %>
+    <div class="mb-4 px-4 mx-auto space-y-3 max-w-lg" %>
+      <div class="block bg-white/5 hover:bg-white/15 text-white py-1.5 px-3 rounded-lg ">
+        <%= message %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= render "form", name: @name %>
+
+  <div class="peer mt-4 px-4 mx-auto space-y-3 max-w-lg not-has-[a]:hidden">
+    <h2 class="text-white">Select a location to view the forecast</h2>
+    <% @geocodes.each do |geocode| %>
+      <%= link_to geocode, class: "block bg-white/5 hover:bg-white/15 text-white py-1.5 px-3 rounded-lg flex flex-row" do %>
+        <div class="flex flex-row items-center">
+          <%= heroicon "map-pin", class: "size-4" %>
+        </div>
+        <div class="flex flex-col ml-2">
+          <div class="text-sm/6 font-medium text-white">
+            <%= geocode.name %>
+          </div>
+          <div class="text-sm flex flex-row space-x-2">
+            <div class="text-sm/6 font-medium text-gray-400 empty:hidden">
+              <%= geocode.admin1 %> 
+            </div>
+            <div class="text-sm/6 font-medium text-gray-400 empty:hidden">
+              <%= geocode.admin2 %> 
+            </div>
+            <div class="text-sm/6 font-medium text-gray-400 empty:hidden">
+              <%= geocode.admin3 %> 
+            </div>
+            <div class="text-sm/6 font-medium text-gray-400 empty:hidden">
+              <%= geocode.admin4 %> 
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="mt-4 px-4 mx-auto space-y-3 max-w-lg data-[name='']:hidden peer-[:has(a)]:hidden" data-name="<%= @name %>">
+    <h2 class="text-white">No locations found with the search term "<%= @name %>"</h2>
+  </div>
+
+</div>
